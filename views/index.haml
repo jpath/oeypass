@@ -1,0 +1,14 @@
+%h1 Class passes
+
+%form{:name => "name", :action => "/pass", :method => "post"}
+  %fieldset
+    %ol
+      %li
+        %label{:for => "name"} Name:
+        %input{:type => "text", :name => "name", :class => "text"}
+      %li
+        %label{:for => "qty"} Quantity:
+        %input{:type => "radio", :name => "qty", :class => "radio", :value => 5} 5
+        %input{:type => "radio", :name => "qty", :class => "radio", :value => "10"} 10
+    %input{:type => "submit", :value => "Send", :class => "button"}
+
