@@ -1,5 +1,7 @@
 # myapp.rb
 require 'sinatra'
+require 'data_mapper'
+require 'haml'
 
 get '/' do
   haml :index
