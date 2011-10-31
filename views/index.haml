@@ -1,13 +1,24 @@
-%h1 Class passes
-
+%h1 OpenEyeYoga: Register New Student
+%p
 %form{:name => "name", :action => "/pass", :method => "post"}
   %fieldset
-    %ol
+    %ul
       %li
         %label{:for => "name"} Name:
         %input{:type => "text", :name => "name", :class => "text"}
       %li
-        %label{:for => "qty"} Quantity:
+        %label{:for => "email"} Email:
+        %input{:type => "text", :name => "email", :class => "text"}
+        <p><strong>Select pass type:</strong></p>
+        <p>Monthly Unlimited:</p>
+      %li
+        %label{:for => "qty"} Select number of months:
+        %input{:type => "radio", :name => "monthly", :class => "radio", :value => "1"} 1
+        %input{:type => "radio", :name => "monthly", :class => "radio", :value => "3"} 3
+        %input{:type => "radio", :name => "monthly", :class => "radio", :value => "6"} 6
+        <p>Class package:</p>
+      %li
+        %label{:for => "qty"} Select class quantity:
         %input{:type => "radio", :name => "qty", :class => "radio", :value => 5} 5
         %input{:type => "radio", :name => "qty", :class => "radio", :value => "10"} 10
     %input{:type => "submit", :value => "Send", :class => "button"}
