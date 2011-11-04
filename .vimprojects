@@ -2,5 +2,6 @@ oeypass=/home/jhughes/dev/oeypass CD=. {
  app.rb
  views=views {
   index.haml
+  students.haml
  }
 }

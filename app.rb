@@ -15,20 +15,23 @@ end
 
 # CONFIGURATION
 configure :development do
-  DataMapper.setup(:default, 'sqlite3://home/jhughes/dev/oeypass/db/development.db')
+  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/development.db")
+  DataMapper::Logger.new(STDOUT, :debug)
+  DataMapper.auto_migrate!
 end
 
 get '/' do
-  @students = Student.find(:all)
   haml :index
 end
 
-get '/pass' do
-  haml :pass
+get '/students' do
+  @students = Student.all
+  haml :students
 end
 
 post '/pass' do
   puts params
-  Student.save
+  @student = Student.create(:name => params[:name], :email => params[:email]) 
+  redirect '/students'
 end
 
