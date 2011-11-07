@@ -25,12 +25,13 @@ get '/' do
 end
 
 get '/students' do
+  DataMapper.logger.debug(params.inspect)
   @students = Student.all
   haml :students
 end
 
 post '/pass' do
-  puts params
+  DataMapper.logger.debug(params.inspect)
   @student = Student.create(:name => params[:name], :email => params[:email]) 
   redirect '/students'
 end
