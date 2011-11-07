@@ -9,8 +9,13 @@
       %li
         %label{:for => "email"} Email:
         %input{:type => "text", :name => "email", :class => "text"}
-        <p><strong>Select pass type:</strong></p>
-        <p>Monthly Unlimited:</p>
+      %li
+        %label{:for => "pass_type"}
+          %strong Select pass type:
+        %br
+        %input{:type => "radio", :name => "pass_type", :class => "radio", :value => "Monthly Unlimited"}Monthly Unlimited
+        %br
+        %input{:type => "radio", :name => "pass_type", :class => "radio", :value => "Class package"}Class package
       %li
         %label{:for => "qty"} Select number of months:
         %input{:type => "radio", :name => "monthly", :class => "radio", :value => "1"} 1
