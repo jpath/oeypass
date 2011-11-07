@@ -1,1 +1,3 @@
-alert("hello world");
+$(document).ready(function() {
+  // do stuff when DOM is ready
+});
