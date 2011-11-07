@@ -1,7 +1,13 @@
 oeypass=/home/jhughes/dev/oeypass CD=. {
  app.rb
+ public {
+  javascripts {
+   app.js
+  }
+ }
  views=views {
   index.haml
+  layout.haml
   students.haml
  }
 }
