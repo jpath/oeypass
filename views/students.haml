@@ -1,2 +1,14 @@
-- @students.each do |s|
-  %p= s.name
+%table
+  - @students.each do |s|
+    %tr
+      %th Name
+      %th Email
+      %th Pass
+      %th Remaining
+      %th Expiry
+    %th
+      %td= s.name
+      %td= s.email
+      %td= s.pass_type
+      %td= s.remaining_classes
+      %td= s.pass_expiry
