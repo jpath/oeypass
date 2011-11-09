@@ -1,6 +1,8 @@
 # myapp.rb
 require 'sinatra'
-require 'data_mapper'
+require 'dm-core'
+require 'dm-migrations'
+require 'dm-timestamps'
 require 'haml'
 
 # MODELS
