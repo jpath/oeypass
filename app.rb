@@ -12,7 +12,15 @@ class Student
   property :name,       String
   property :email,      String
   property :pass_type,  String
-  property :quantity,   String
+  property :class_qty,  Integer
+  property :month_qty,  Integer
+  property :created_on, Date
+  property :updated_on,  Date
+
+  def remaining_classes
+  end
+  def pass_expiry
+  end
 end
 
 # CONFIGURATION
