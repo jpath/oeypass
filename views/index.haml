@@ -16,14 +16,14 @@
     %br
     %div{:id => "monthly_select", :style => "display:none"}
       %label{:for => "qty"} Select number of months:
-      %input{:type => "radio", :name => "monthly", :class => "radio", :value => "1"} 1
-      %input{:type => "radio", :name => "monthly", :class => "radio", :value => "3"} 3
-      %input{:type => "radio", :name => "monthly", :class => "radio", :value => "6"} 6
+      %input{:type => "radio", :name => "month_qty", :class => "radio", :value => "1"} 1
+      %input{:type => "radio", :name => "month_qty", :class => "radio", :value => "3"} 3
+      %input{:type => "radio", :name => "month_qty", :class => "radio", :value => "6"} 6
     %br
     %div{:style => "display:none", :id => "class_package_select"}
       %label{:for => "qty"} Select class quantity:
-      %input{:type => "radio", :name => "qty", :class => "radio", :value => 5} 5
-      %input{:type => "radio", :name => "qty", :class => "radio", :value => "10"} 10
+      %input{:type => "radio", :name => "class_qty", :class => "radio", :value => 5} 5
+      %input{:type => "radio", :name => "class_qty", :class => "radio", :value => "10"} 10
     %br
   %input{:type => "submit", :value => "Send", :class => "button"}
 
