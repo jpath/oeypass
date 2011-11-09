@@ -17,10 +17,15 @@ class Student
   property :created_on, Date
   property :updated_on,  Date
 
+  has n, :visits
   def remaining_classes
   end
   def pass_expiry
   end
+end
+
+class Visit
+  belongs_to :student
 end
 
 # CONFIGURATION
