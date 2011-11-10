@@ -25,6 +25,10 @@ class Student
 end
 
 class Visit
+  include DataMapper::Resource
+  property :id,         Serial
+  property :created_at, DateTime
+
   belongs_to :student
 end
 
