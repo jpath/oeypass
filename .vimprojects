@@ -1,5 +1,6 @@
 oeypass=/home/jhughes/dev/oeypass CD=. {
  app.rb
+ test.rb
  public {
   javascripts {
    app.js

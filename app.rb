@@ -3,23 +3,28 @@ require 'sinatra'
 require 'dm-core'
 require 'dm-migrations'
 require 'dm-timestamps'
+require 'dm-validations'
+require 'dm-types'
+require 'active_support/core_ext/numeric/time'
 require 'haml'
 
 # MODELS
 class Student
   include DataMapper::Resource
   property :id,         Serial
-  property :name,       String
-  property :email,      String
+  property :name,       String, :required => true
+  property :email,      String, :required => true
   property :pass_type,  String
-  property :class_qty,  Integer
-  property :month_qty,  Integer
+  property :class_qty,  Enum[1, 5, 10]
+  property :month_qty,  Enum[1, 3, 6]
   property :created_on, Date
   property :updated_on,  Date
 
   has n, :visits
+
   def remaining_classes
   end
+
   def pass_expiry
   end
 end
