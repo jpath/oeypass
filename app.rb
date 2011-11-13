@@ -38,6 +38,8 @@ class Visit
   belongs_to :student
 end
 
+enable :sessions
+
 # CONFIGURATION
 configure :development do
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/development.db")
@@ -46,6 +48,7 @@ configure :development do
 end
 
 get '/' do
+  @errors = session[:errors]
   haml :index
 end
 
@@ -58,6 +61,11 @@ end
 post '/pass' do
   DataMapper.logger.debug(params.inspect)
   @student = Student.create(:name => params[:name], :email => params[:email]) 
-  redirect '/students'
+  if @student.saved?
+    redirect '/students'
+  else
+    session[:errors] = @student.errors.values.map{|e| e.to_s}
+    redirect '/'
+  end
 end
 

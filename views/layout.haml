@@ -4,4 +4,8 @@
     %script{:type => "text/javascript", :src => "javascripts/jquery-1.7.min.js"}
     %script{:type => "text/javascript", :src => "javascripts/app.js"}
   %body
+    -if @errors
+      -@errors.each do |e|
+        %p{:class => 'error'}
+        =e
     =yield
