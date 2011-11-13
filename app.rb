@@ -23,6 +23,7 @@ class Student
   has n, :visits
 
   def remaining_classes
+    class_qty - visits.size
   end
 
   def pass_expiry
