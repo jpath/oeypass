@@ -57,12 +57,11 @@ configure :development do
 end
 
 get '/' do
-  @errors = session[:errors]
+  @errors = session.delete :errors
   haml :index
 end
 
 get '/students' do
-  DataMapper.logger.debug(params.inspect)
   @students = Student.all
   haml :students
 end
