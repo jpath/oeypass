@@ -8,7 +8,7 @@ require 'dm-types'
 # Latest version has bug: eg. Time.now - 1.days raises Date#advance NoMethodError
 gem 'activesupport', "= 3.0.5"
 #require 'active_support/core_ext/numeric/time'
-require 'active_support/all' # Need this instead of previous for months() method to work
+require 'active_support/all' # Need this instead of previous for months() method to work 
 require 'haml'
 
 # MODELS
@@ -70,7 +70,7 @@ post '/pass' do
   DataMapper.logger.debug(params.inspect)
   @student = Student.create(:name => params[:name], :email => params[:email],
                            :pass_type => params[:pass_type], :class_qty => params[:class_qty],
-                           :month_qty => params[:month_qty])
+                           :month_qty => params[:month_qty]) 
   if @student.saved?
     redirect '/students'
   else
