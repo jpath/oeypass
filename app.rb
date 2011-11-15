@@ -17,11 +17,14 @@ class Student
   property :id,         Serial
   property :name,       String, :required => true
   property :email,      String, :required => true
-  property :pass_type,  String
+  property :pass_type,  Enum['monthly', 'class_package', 'intro']
   property :class_qty,  Enum[1, 5, 10]
   property :month_qty,  Enum[1, 3, 6]
   property :created_on, Date
-  property :updated_on,  Date
+  property :updated_on, Date
+
+  validates_presence_of :class_qty, :if => lambda {|s| s.pass_type == 'class_package'}
+  validates_presence_of :month_qty, :if => lambda {|s| s.pass_type == 'monthly'}
 
   has n, :visits
 
