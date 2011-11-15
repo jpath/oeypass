@@ -1,11 +1,14 @@
-# myapp.rb
+# app.rb
 require 'sinatra'
 require 'dm-core'
 require 'dm-migrations'
 require 'dm-timestamps'
 require 'dm-validations'
 require 'dm-types'
-require 'active_support/core_ext/numeric/time'
+# Latest version has bug: eg. Time.now - 1.days raises Date#advance NoMethodError
+gem 'activesupport', "= 3.0.5"
+#require 'active_support/core_ext/numeric/time'
+require 'active_support/all' # Need this instead of previous for months() method to work
 require 'haml'
 
 # MODELS
