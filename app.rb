@@ -68,7 +68,9 @@ end
 
 post '/pass' do
   DataMapper.logger.debug(params.inspect)
-  @student = Student.create(:name => params[:name], :email => params[:email]) 
+  @student = Student.create(:name => params[:name], :email => params[:email],
+                           :pass_type => params[:pass_type], :class_qty => params[:class_qty],
+                           :month_qty => params[:month_qty])
   if @student.saved?
     redirect '/students'
   else
