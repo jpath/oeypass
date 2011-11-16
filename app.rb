@@ -29,12 +29,12 @@ class Student
   has n, :visits
 
   def remaining_classes
-    return if pass_type != "class_package"
+    return "n/a" if pass_type != "class_package"
     class_qty - visits.size
   end
 
   def pass_expiry
-    return if pass_type != "monthly"
+    return "n/a" if pass_type != "monthly"
     created_on + month_qty.to_i.months
   end
 end

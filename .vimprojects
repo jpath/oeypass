@@ -9,6 +9,7 @@ oeypass=/home/jhughes/dev/oeypass CD=. {
  views=views {
   index.haml
   layout.haml
+  student.haml
   students.haml
  }
 }
