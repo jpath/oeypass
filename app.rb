@@ -56,8 +56,11 @@ configure :development do
   DataMapper.auto_migrate!
 end
 
-get '/' do
+before do
   @errors = session.delete :errors
+end
+
+get '/' do
   haml :index
 end
 
