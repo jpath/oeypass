@@ -82,3 +82,12 @@ post '/pass' do
   end
 end
 
+post '/visit' do
+  @visit = Visit.create(:student_id => params[:student_id])
+  if @visit.saved?
+    redirect '/students'
+  else
+    session[:errors] = @visit.errors.values.map{|e| e.to_s}
+    redirect '/students'
+  end
+end
