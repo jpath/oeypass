@@ -1,12 +1,17 @@
-%table
-  - @students.each do |s|
-    %tr
-      %th Name
-      %th Email
-      %th Remaining
-      %th Expiry
-    %tr
-      %td= s.name
-      %td= s.email
-      %td= s.remaining_classes
-      %td= s.pass_expiry
+%table{:border => "1"}
+  %tr
+    %th Name
+    %th Email
+    %th Remaining
+    %th Expiry
+    %th 
+    - @students.each do |s|
+      %tr
+        %td= s.name
+        %td= s.email
+        %td= s.remaining_classes
+        %td= s.pass_expiry
+        %td
+          %form{:action => "/visit", :method => "post"}
+            %input{:type => "hidden", :name => "student_id", :value => s.id}
+            %input{:type => "submit", :value => "Check-in", :name => "checkin" }
