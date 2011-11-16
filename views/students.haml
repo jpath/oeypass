@@ -7,7 +7,9 @@
     %th 
     - @students.each do |s|
       %tr
-        %td= s.name
+        %td
+          %a{:href => "/student/#{s.id}"}
+            = s.name
         %td= s.email
         %td= s.remaining_classes
         %td= s.pass_expiry

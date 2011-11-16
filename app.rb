@@ -91,3 +91,8 @@ post '/visit' do
     redirect '/students'
   end
 end
+
+get '/student/:id' do
+  @student = Student.get(params[:id])
+  haml :student
+end
