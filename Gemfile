@@ -4,3 +4,4 @@ gem 'sinatra'
 gem 'data_mapper'
 gem 'activesupport', "= 3.0.5"
 gem 'i18n'
+gem 'haml'
