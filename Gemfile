@@ -1,7 +1,12 @@
 source 'http://rubygems.org'
 gem 'rack'
 gem 'sinatra'
-gem 'data_mapper'
+gem 'dm-core'
+gem 'dm-migrations'
+gem 'dm-timestamps'
+gem 'dm-validations'
+gem 'dm-types'
+gem 'dm-postgres-adapter'
 gem 'activesupport', "= 3.0.5"
 gem 'i18n'
 gem 'haml'
