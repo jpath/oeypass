@@ -59,6 +59,7 @@ configure :development do
 end
 
 configure :production do
+  require 'dm-postgres-adapter'
   DataMapper.setup(:default, ENV['DATABASE_URL'])
   DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.auto_upgrade!
