@@ -7,7 +7,6 @@ require 'dm-timestamps'
 require 'dm-validations'
 require 'dm-types'
 require 'dm-sqlite-adapter'
-
 # Latest version has bug: eg. Time.now - 1.days raises Date#advance NoMethodError
 gem 'activesupport', "= 3.0.5"
 #require 'active_support/core_ext/numeric/time'
@@ -60,7 +59,7 @@ configure :development do
 end
 
 configure :production do
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/production.db")
+  DataMapper.setup(:default, 'mysql://localhost/oeypass')
   DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.auto_upgrade!
 end
