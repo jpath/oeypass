@@ -59,7 +59,7 @@ configure :development do
 end
 
 configure :production do
-  DataMapper.setup(:default, 'mysql://localhost/oeypass')
+  DataMapper.setup(:default, ENV['DATABASE_URL'])
   DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.auto_upgrade!
 end
