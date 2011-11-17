@@ -1,4 +1,5 @@
 # app.rb
+require 'rubygems'
 require 'sinatra'
 require 'dm-core'
 require 'dm-migrations'
