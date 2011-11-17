@@ -6,6 +6,8 @@ require 'dm-migrations'
 require 'dm-timestamps'
 require 'dm-validations'
 require 'dm-types'
+require 'dm-sqlite-adapter'
+
 # Latest version has bug: eg. Time.now - 1.days raises Date#advance NoMethodError
 gem 'activesupport', "= 3.0.5"
 #require 'active_support/core_ext/numeric/time'
