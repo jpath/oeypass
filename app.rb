@@ -56,6 +56,12 @@ configure :development do
   DataMapper.auto_migrate!
 end
 
+configure :production do
+  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/production.db")
+  DataMapper::Logger.new(STDOUT, :debug)
+  DataMapper.auto_upgrade!
+end
+
 before do
   @errors = session.delete :errors
 end
