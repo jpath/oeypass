@@ -6,7 +6,6 @@ require 'dm-migrations'
 require 'dm-timestamps'
 require 'dm-validations'
 require 'dm-types'
-require 'dm-sqlite-adapter'
 # Latest version has bug: eg. Time.now - 1.days raises Date#advance NoMethodError
 gem 'activesupport', "= 3.0.5"
 #require 'active_support/core_ext/numeric/time'
@@ -53,6 +52,7 @@ enable :sessions
 
 # CONFIGURATION
 configure :development do
+  require 'dm-sqlite-adapter'
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/development.db")
   DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.auto_migrate!
