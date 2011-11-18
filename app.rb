@@ -35,8 +35,12 @@ class Student
   end
 
   def pass_expiry
-    return "n/a" if pass_type != "monthly"
-    created_on + month_qty.to_i.months
+    return "n/a" unless pass_type == "monthly" or pass_type == "intro"
+    if pass_type == "monthly"
+      created_on + month_qty.to_i.months
+    else
+      created_on + 2.weeks
+    end
   end
 end
 
