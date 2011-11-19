@@ -69,10 +69,12 @@ configure :production do
   DataMapper.auto_upgrade!
 end
 
+# FILTERS
 before do
   @errors = session.delete :errors
 end
 
+# ROUTING
 get '/' do
   haml :index
 end
@@ -108,4 +110,11 @@ end
 get '/student/:id' do
   @student = Student.get(params[:id])
   haml :student
+end
+
+# HELPERS
+helpers do
+  def partial(page, options={})
+    haml page, options.merge!(:layout => false)
+  end
 end

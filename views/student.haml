@@ -1,3 +1,7 @@
 %h1= @student.name
 %p= "Remaining classes: #{@student.remaining_classes}"
 %p= "Pass expiry: #{@student.pass_expiry}"
+%form{:action => "/pass", :method => "put"}
+  %fieldset
+    =partial :pass_type
+    %input{:type => "hidden", :NAme => "id", :value => @student.id}

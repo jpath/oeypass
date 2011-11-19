@@ -2,14 +2,15 @@ oeypass=/home/jhughes/dev/oeypass CD=. {
  app.rb
  config.ru
  test.rb
- public {
-  javascripts {
+ public=public {
+  javascripts=javascripts {
    app.js
   }
  }
  views=views {
   index.haml
   layout.haml
+  pass_type.haml
   student.haml
   students.haml
  }
