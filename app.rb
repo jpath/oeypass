@@ -59,7 +59,7 @@ configure :development do
   require 'dm-sqlite-adapter'
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/development.db")
   DataMapper::Logger.new(STDOUT, :debug)
-  DataMapper.auto_migrate!
+  DataMapper.auto_upgrade!
 end
 
 configure :production do
@@ -99,6 +99,10 @@ end
 
 put '/pass' do
   DataMapper.logger.debug(params.inspect)
+  @student = Student.get(params[:id])
+  params.delete("_method")
+  @student.update(params)
+  DataMapper.logger.debug(@student.inspect)
 end
 
 post '/visit' do
