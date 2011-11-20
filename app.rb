@@ -52,9 +52,9 @@ class Visit
   belongs_to :student
 end
 
-enable :sessions
-
 # CONFIGURATION
+enable :sessions
+enable :method_override
 configure :development do
   require 'dm-sqlite-adapter'
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/development.db")
@@ -95,6 +95,10 @@ post '/pass' do
     session[:errors] = @student.errors.values.map{|e| e.to_s}
     redirect '/'
   end
+end
+
+put '/pass' do
+  DataMapper.logger.debug(params.inspect)
 end
 
 post '/visit' do
