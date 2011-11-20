@@ -17,7 +17,7 @@ class Student
   include DataMapper::Resource
   property :id,         Serial
   property :name,       String, :required => true
-  property :email,      String, :required => true
+  property :email,      String, :required => true, :unique => true
   property :pass_type,  Enum['monthly', 'class_package', 'intro']
   property :class_qty,  Enum[1, 5, 10]
   property :month_qty,  Enum[1, 3, 6]
@@ -98,11 +98,9 @@ post '/pass' do
 end
 
 put '/pass' do
-  DataMapper.logger.debug(params.inspect)
   @student = Student.get(params[:id])
   params.delete("_method")
   @student.update(params)
-  DataMapper.logger.debug(@student.inspect)
 end
 
 post '/visit' do
