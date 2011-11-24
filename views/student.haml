@@ -2,8 +2,14 @@
 %p= "Remaining classes: #{@student.remaining_classes}"
 %p= "Pass expiry: #{@student.pass_expiry}"
 %form{:action => "/pass", :method => "post"}
+  %p 
+    %strong Buy new pass:
   %fieldset
     =partial :pass_type
     %input{:type=>"hidden", :name=>"_method", :value=>"put"}
     %input{:type => "hidden", :name => "id", :value => @student.id}
   %input{:type => "submit", :value => "Send", :class => "button"}
+
+%h2 Visit history:
+-@student.visits.each do |v| 
+  %p= v.created_at 
