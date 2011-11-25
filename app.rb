@@ -28,20 +28,8 @@ class Student
   validates_presence_of :month_qty, :if => lambda {|s| s.pass_type == 'monthly'}
 
   has n, :visits
+  has 1, :pass
 
-  def remaining_classes
-    return "n/a" if pass_type != "class_package"
-    class_qty - visits.size
-  end
-
-  def pass_expiry
-    return "n/a" unless pass_type == "monthly" or pass_type == "intro"
-    if pass_type == "monthly"
-      created_on + month_qty.to_i.months
-    else
-      created_on + 2.weeks
-    end
-  end
   def visited_today?
     if most_recent_visit.nil?
       false
@@ -67,6 +55,29 @@ class Visit
   end
 end
 
+class Pass
+  include DataMapper::Resource
+  property :id,         Serial
+  property :name,       String
+  property :pass_type,  String
+  property :price,      Decimal
+
+  belongs_to :student
+
+  def remaining_classes
+    return "n/a" if pass_type != "class_package"
+    class_qty - visits.size
+  end
+
+  def pass_expiry
+    return "n/a" unless pass_type == "monthly" or pass_type == "intro"
+    if pass_type == "monthly"
+      created_on + month_qty.to_i.months
+    else
+      created_on + 2.weeks
+    end
+  end
+end
 # CONFIGURATION
 enable :sessions
 enable :method_override
