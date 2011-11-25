@@ -16,4 +16,4 @@
         %td
           %form{:action => "/visit", :method => "post"}
             %input{:type => "hidden", :name => "student_id", :value => s.id}
-            %input{:type => "submit", :value => "Check-in", :name => "checkin" }
+            %input{:type => "submit", :value => "Check-in", :name => "checkin", :disabled => s.visited_today? }
