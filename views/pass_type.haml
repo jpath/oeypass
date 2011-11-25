@@ -1,9 +1,13 @@
 %label{:for => "pass_type"}
   %strong Select pass type:
 %br
-%input{:id => "monthly_radio", :type => "radio", :name => "pass_type", :class => "radio", :value => "monthly"}Monthly Unlimited
+%input{:id => "monthly_radio", :type => "radio", :name => "pass_type", :class => "monthly_radio", :value => "monthly"}Monthly Unlimited
 %br
-%input{:id => "class_package_radio", :type => "radio", :name => "pass_type", :class => "radio", :value => "class_package"}Class package
+%input{:id => "monthly_student_radio", :type => "radio", :name => "pass_type", :class => "monthly_radio", :value => "monthly_student"}Monthly Unlimited (Student)
+%br
+%input{:id => "class_package_radio", :type => "radio", :name => "pass_type", :class => "class_package_radio", :value => "class_package"}Class package
+%br
+%input{:id => "class_package_student_radio", :type => "radio", :name => "pass_type", :class => "class_package_radio", :value => "class_package_student"}Class package (Student)
 %div{:id => "monthly_select", :style => "display:none"}
   %label{:for => "qty"} Select number of months:
   %input{:type => "radio", :name => "month_qty", :class => "radio", :value => "1"} 1
