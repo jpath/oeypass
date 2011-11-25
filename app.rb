@@ -42,6 +42,17 @@ class Student
       created_on + 2.weeks
     end
   end
+  def visited_today?
+    if most_recent_visit.nil?
+      false
+    else
+      most_recent_visit.today?
+    end
+  end
+
+  def most_recent_visit
+    visits(:order => [:created_at.desc])[0]
+  end
 end
 
 class Visit
@@ -50,6 +61,10 @@ class Visit
   property :created_at, DateTime
 
   belongs_to :student
+
+  def today?
+    Time.now - created_at < 12.hours
+  end
 end
 
 # CONFIGURATION
