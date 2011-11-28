@@ -18,14 +18,9 @@ class Student
   property :id,         Serial
   property :name,       String, :required => true
   property :email,      String, :required => true, :unique => true
-  property :pass_type,  Enum['monthly', 'class_package', 'intro']
-  property :class_qty,  Enum[1, 5, 10]
-  property :month_qty,  Enum[1, 3, 6]
   property :created_on, Date
   property :updated_on, Date
 
-  validates_presence_of :class_qty, :if => lambda {|s| s.pass_type == 'class_package'}
-  validates_presence_of :month_qty, :if => lambda {|s| s.pass_type == 'monthly'}
 
   has n, :visits
   has 1, :pass
@@ -59,14 +54,20 @@ class Pass
   include DataMapper::Resource
   property :id,         Serial
   property :name,       String
-  property :pass_type,  String
-  property :price,      Decimal
+  property :pass_type,  Enum['monthly', 'class_package', 'intro']
+  property :class_qty,  Enum[1, 5, 10]
+  property :month_qty,  Enum[1, 3, 6]
+  property :created_on, Date
+  property :updated_on, Date
+
+  validates_presence_of :class_qty, :if => lambda {|p| p.pass_type == 'class_package'}
+  validates_presence_of :month_qty, :if => lambda {|p| p.pass_type == 'monthly'}
 
   belongs_to :student
 
   def remaining_classes
     return "n/a" if pass_type != "class_package"
-    class_qty - visits.size
+    class_qty - student.visits.size
   end
 
   def pass_expiry
@@ -112,9 +113,11 @@ end
 
 post '/pass' do
   DataMapper.logger.debug(params.inspect)
-  @student = Student.create(:name => params[:name], :email => params[:email],
-                           :pass_type => params[:pass_type], :class_qty => params[:class_qty],
-                           :month_qty => params[:month_qty]) 
+  @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
+                      :month_qty => params[:month_qty])
+  @student = Student.create(:name => params[:name], :email => params[:email])
+  @student.pass = @pass;
+  @student.save!
   if @student.saved?
     redirect '/students'
   else
@@ -124,9 +127,14 @@ post '/pass' do
 end
 
 put '/pass' do
-  @student = Student.get(params[:id])
+  @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
+                      :month_qty => params[:month_qty])
+  @student = Student.get(params[:student_id])
   params.delete("_method")
   @student.update(params)
+  @student.pass.destroy || raise "Couldn't destroy pass for student #{@student.name}"
+  @student.pass = @pass;
+  @student.save!
 end
 
 post '/visit' do

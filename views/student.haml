@@ -7,7 +7,7 @@
   %fieldset
     =partial :pass_type
     %input{:type=>"hidden", :name=>"_method", :value=>"put"}
-    %input{:type => "hidden", :name => "id", :value => @student.id}
+    %input{:type => "hidden", :name => "student_id", :value => @student.id}
   %input{:type => "submit", :value => "Send", :class => "button"}
 
 %h2 Visit history:
