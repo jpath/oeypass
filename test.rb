@@ -6,10 +6,10 @@ class TestStudent < Test::Unit::TestCase
   def setup
     @time = Time.now - 3.weeks
     @months = 1 
-    @s1 = Student.new
+    @s1 = Student.new 
     @p1 = Pass.new :pass_type => "class_package", :class_qty => "10"
     @s1.pass = @p1
-    @s2 = Student.new
+    @s2 = Student.new 
     @p2 = Pass.new :pass_type => "monthly", :created_on => @time, :month_qty => @months
     @s2.pass = @p2
   end

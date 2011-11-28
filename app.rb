@@ -47,6 +47,7 @@ class Visit
 
   def today?
     Time.now - created_at < 8.hours
+    #false
   end
 end
 
@@ -117,9 +118,9 @@ post '/pass' do
   DataMapper.logger.debug(params.inspect)
   @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
                    :month_qty => params[:month_qty])
-  @student = Student.create(:name => params[:name], :email => params[:email])
+  @student = Student.create(:name => params[:name], :email => params[:email]) 
   @student.pass = @pass;
-  @student.save!
+  @student.save
   if @student.saved?
     redirect '/students'
   else
@@ -130,13 +131,19 @@ end
 
 put '/pass' do
   @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
-                      :month_qty => params[:month_qty])
+                   :month_qty => params[:month_qty])
   @student = Student.get(params[:student_id])
   params.delete("_method")
-  @student.update(params)
-  @student.pass.destroy || raise "Couldn't destroy pass for student #{@student.name}"
+  @student.pass.destroy
   @student.pass = @pass;
-  @student.save!
+  @student.save
+
+  if @student.saved?
+    redirect "/student/#{@student.id}"
+  else
+    session[:errors] = @student.errors.values.map{|e| e.to_s}
+    redirect "/student/#{@student.id}"
+  end
 end
 
 post '/visit' do
