@@ -1,6 +1,6 @@
 %h1= @student.name
-%p= "Remaining classes: #{@student.remaining_classes}"
-%p= "Pass expiry: #{@student.pass_expiry}"
+%p= "Remaining classes: #{@student.pass.remaining_classes}"
+%p= "Pass expiry: #{@student.pass.expiry}"
 %form{:action => "/pass", :method => "post"}
   %p 
     %strong Buy new pass:

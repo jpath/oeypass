@@ -59,6 +59,7 @@ class Pass
   property :month_qty,  Enum[1, 3, 6]
   property :created_on, Date
   property :updated_on, Date
+  property :price,      Decimal
 
   validates_presence_of :class_qty, :if => lambda {|p| p.pass_type == 'class_package'}
   validates_presence_of :month_qty, :if => lambda {|p| p.pass_type == 'monthly'}
@@ -70,7 +71,7 @@ class Pass
     class_qty - student.visits.size
   end
 
-  def pass_expiry
+  def expiry
     return "n/a" unless pass_type == "monthly" or pass_type == "intro"
     if pass_type == "monthly"
       created_on + month_qty.to_i.months
@@ -87,6 +88,7 @@ configure :development do
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/development.db")
   DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.auto_upgrade!
+  #DataMapper.auto_migrate!
 end
 
 configure :production do
@@ -114,7 +116,7 @@ end
 post '/pass' do
   DataMapper.logger.debug(params.inspect)
   @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
-                      :month_qty => params[:month_qty])
+                   :month_qty => params[:month_qty])
   @student = Student.create(:name => params[:name], :email => params[:email])
   @student.pass = @pass;
   @student.save!

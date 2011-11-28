@@ -11,8 +11,8 @@
           %a{:href => "/student/#{s.id}"}
             = s.name
         %td= s.email
-        %td= s.remaining_classes
-        %td= s.pass_expiry
+        %td= s.pass.remaining_classes
+        %td= s.pass.expiry
         %td
           %form{:action => "/visit", :method => "post"}
             %input{:type => "hidden", :name => "student_id", :value => s.id}
