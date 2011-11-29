@@ -117,7 +117,7 @@ end
 post '/pass' do
   DataMapper.logger.debug(params.inspect)
   @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
-                   :month_qty => params[:month_qty])
+                   :month_qty => params[:month_qty], :price => params[:pass_price])
   @student = Student.create(:name => params[:name], :email => params[:email]) 
   @student.pass = @pass;
   @student.save
@@ -131,7 +131,7 @@ end
 
 put '/pass' do
   @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
-                   :month_qty => params[:month_qty])
+                   :month_qty => params[:month_qty], :price => params[:pass_price])
   @student = Student.get(params[:student_id])
   params.delete("_method")
   @student.pass.destroy
