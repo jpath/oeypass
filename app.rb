@@ -117,15 +117,16 @@ end
 
 post '/pass' do
   DataMapper.logger.debug(params.inspect)
-  @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
-                   :month_qty => params[:month_qty], :price => params[:pass_price])
   @student = Student.create(:name => params[:name], :email => params[:email]) 
-  @student.pass = @pass;
+  @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
+                   :month_qty => params[:month_qty], :price => params[:pass_price], :student_id => @student.id)
+  @pass.save
   @student.save
-  if @student.saved?
+  if @student.saved? && @pass.saved?
     redirect '/students'
   else
     session[:errors] = @student.errors.values.map{|e| e.to_s}
+    session[:errors].concat(@pass.errors.values.map{|e| e.to_s})
     redirect '/'
   end
 end
