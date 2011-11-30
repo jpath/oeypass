@@ -46,8 +46,8 @@ class Visit
   belongs_to :student
 
   def today?
-    Time.now - created_at < 8.hours
-    #false
+    #Time.now - created_at < 8.hours
+    false
   end
 end
 
@@ -55,28 +55,29 @@ class Pass
   include DataMapper::Resource
   property :id,         Serial
   property :name,       String
-  property :pass_type,  Enum['monthly', 'class_package', 'intro']
+  property :pass_type,  Enum['monthly', 'monthly_student', 'class_package', 'class_package_student', 'intro']
   property :class_qty,  Enum[1, 5, 10]
   property :month_qty,  Enum[1, 3, 6]
   property :created_on, Date
   property :updated_on, Date
   property :price,      Decimal
 
-  validates_presence_of :class_qty, :if => lambda {|p| p.pass_type == 'class_package'}
-  validates_presence_of :month_qty, :if => lambda {|p| p.pass_type == 'monthly'}
+  validates_presence_of :pass_type
+  validates_presence_of :class_qty, :if => lambda {|p| p.pass_type == 'class_package' || p.pass_type == 'class_package_student'}
+  validates_presence_of :month_qty, :if => lambda {|p| p.pass_type == 'monthly' || p.pass_type == 'monthly_student'}
 
   belongs_to :student
 
   def remaining_classes
-    return "n/a" if pass_type != "class_package"
+    return "n/a" unless (pass_type == "class_package" or pass_type == "class_package_student")
     class_qty - student.visits.size
   end
 
   def expiry
-    return "n/a" unless pass_type == "monthly" or pass_type == "intro"
-    if pass_type == "monthly"
+    return "n/a" unless pass_type == "monthly" or pass_type == "monthly_student" or pass_type == "intro"
+    if pass_type == "monthly" || pass_type == "monthly_student"
       created_on + month_qty.to_i.months
-    else
+    else # intro
       created_on + 2.weeks
     end
   end
