@@ -87,6 +87,7 @@ enable :sessions
 enable :method_override
 configure :development do
   require 'dm-sqlite-adapter'
+  #require 'ruby-debug/debugger'
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/db/development.db")
   DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.auto_upgrade!
@@ -120,30 +121,30 @@ post '/pass' do
   @student = Student.create(:name => params[:name], :email => params[:email]) 
   @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
                    :month_qty => params[:month_qty], :price => params[:pass_price], :student_id => @student.id)
-  @pass.save
-  @student.save
-  if @student.saved? && @pass.saved?
+  @student.pass = @pass
+  if @student.save
     redirect '/students'
   else
     session[:errors] = @student.errors.values.map{|e| e.to_s}
     session[:errors].concat(@pass.errors.values.map{|e| e.to_s})
+    @student.destroy unless @student.nil?
     redirect '/'
   end
 end
 
 put '/pass' do
-  @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
-                   :month_qty => params[:month_qty], :price => params[:pass_price])
   @student = Student.get(params[:student_id])
+  @pass = Pass.new(:pass_type => params[:pass_type], :class_qty => params[:class_qty],
+                   :month_qty => params[:month_qty], :price => params[:pass_price], :student_id => @student.id)
   params.delete("_method")
   @student.pass.destroy
   @student.pass = @pass;
-  @student.save
 
-  if @student.saved?
+  if @student.save
     redirect "/student/#{@student.id}"
   else
     session[:errors] = @student.errors.values.map{|e| e.to_s}
+    session[:errors].concat(@pass.errors.values.map{|e| e.to_s})
     redirect "/student/#{@student.id}"
   end
 end
