@@ -112,7 +112,7 @@ get '/' do
 end
 
 get '/students' do
-  @students = Student.all
+  @students = Student.all(:order => [:name])
   haml :students
 end
 
