@@ -1,21 +1,21 @@
 %table{:border => "1"}
   %tr
     %th Name
+    %th 
     %th Email
     %th Remaining
     %th Expiry
-    %th 
     - @students.each do |s|
       %tr
         %td
           %a{:href => "/student/#{s.id}"}
             = s.name
-        %td= s.email
-        %td= s.pass.remaining_classes
-        %td= s.pass.expiry
         %td
           %form{:action => "/visit", :method => "post"}
             %input{:type => "hidden", :name => "student_id", :value => s.id}
             %input{:type => "submit", :value => "Check-in", :name => "checkin", :disabled => s.visited_today? }
+        %td= s.email
+        %td= s.pass.remaining_classes
+        %td= s.pass.expiry
 %p
   %a{:href => "/"} New student
