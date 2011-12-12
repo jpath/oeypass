@@ -43,12 +43,11 @@ class Visit
   property :id,         Serial
   property :created_at, DateTime
 
-  belongs_to :pass
   belongs_to :student
 
   def today?
-    #Time.now - created_at < 3.hours
-    false
+    Time.now - created_at < 3.hours
+    #false
   end
 end
 
@@ -68,11 +67,10 @@ class Pass
   validates_presence_of :month_qty, :if => lambda {|p| p.pass_type == 'monthly' || p.pass_type == 'monthly_student'}
 
   belongs_to :student
-  has n, :visits
 
   def remaining_classes
     return "n/a" unless (pass_type == "class_package" or pass_type == "class_package_student")
-    class_qty - visits.size
+    class_qty - student.visits.size
   end
 
   def expiry
@@ -84,7 +82,6 @@ class Pass
     end
   end
 end
-
 # CONFIGURATION
 enable :sessions
 enable :method_override
@@ -153,8 +150,7 @@ put '/pass' do
 end
 
 post '/visit' do
-  student = Student.get(params[:student_id])
-  @visit = Visit.create(:student_id => student.id, :pass_id => student.pass.id)
+  @visit = Visit.create(:student_id => params[:student_id])
   if @visit.saved?
     redirect '/students'
   else
