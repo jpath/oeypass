@@ -22,8 +22,10 @@ end
 
 if $0 == __FILE__
   if $*.first == "down"
+    DataMapper.logger.debug( "Starting Down Migration" )
     migrate_down!
   else
+    DataMapper.logger.debug( "Starting Up Migration" )
     migrate_up!
   end
 end
