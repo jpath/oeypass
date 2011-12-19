@@ -7,6 +7,9 @@ oeypass=/home/jhughes/dev/oeypass CD=. {
    app.js
   }
  }
+ migrations=migrations {
+  add_pass_id_to_visit.rb
+ }
  views=views {
   index.haml
   layout.haml

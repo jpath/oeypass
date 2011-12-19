@@ -8,11 +8,13 @@ migration 1, :add_pass_id_to_visit do
   up do 
     modify_table :visits do
       add_column :pass_id, Integer
+      DataMapper.logger.debug( "Added column 'pass_id'" )
     end
   end
   down do 
     modify_table :visits do
       drop_column :pass_id
+      DataMapper.logger.debug( "Dropped column 'pass_id'" )
     end
   end
 end
