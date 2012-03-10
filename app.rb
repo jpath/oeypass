@@ -47,7 +47,8 @@ class Visit
   belongs_to :student
 
   def today?
-    Time.now - created_at < 3.hours
+    Time.now - created_at < 3.minutes
+    #Time.now - created_at < 3.hours
     #false
   end
 end
