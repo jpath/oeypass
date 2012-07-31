@@ -76,8 +76,12 @@ class Pass
     class_qty - visits.size
   end
 
+  def unlimited?
+    pass_type == "monthly" or pass_type == "monthly_student" or pass_type == "intro"
+  end
+
   def expiry
-    return "n/a" unless pass_type == "monthly" or pass_type == "monthly_student" or pass_type == "intro"
+    return "n/a" unless unlimited?
     if pass_type == "monthly" || pass_type == "monthly_student"
       created_on + month_qty.to_i.months
     else # intro
@@ -86,15 +90,21 @@ class Pass
   end
 
   def days_left
-    expiry - Date.today  
+    if unlimited?
+      expiry - Date.today 
+    end
   end
 
   def expires_soon?
-    days_left < 7 && days_left > 0
+    if unlimited?
+      days_left < 7 && days_left > 0 
+    end
   end
 
   def expired?
-    days_left <= 0
+    if unlimited?
+      days_left <= 0
+    end
   end
 end
 # CONFIGURATION
