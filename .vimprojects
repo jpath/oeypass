@@ -1,7 +1,5 @@
 oeypass=/home/jhughes/dev/oeypass CD=. {
  Gemfile
- Gemfile.lock
- Session.vim
  app.rb
  config.ru
  test.rb
