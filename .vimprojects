@@ -16,5 +16,6 @@ oeypass=/home/jhughes/dev/oeypass CD=. {
   pass_type.haml
   student.haml
   students.haml
+  style.sass
  }
 }

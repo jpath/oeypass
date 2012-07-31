@@ -16,6 +16,11 @@
             %input{:type => "submit", :value => "Check-in", :name => "checkin", :disabled => s.visited_today? }
         %td= s.email
         %td= s.pass.remaining_classes
-        %td= s.pass.expiry
+        - if s.pass.expires_soon?
+          %td{:class => "expires-soon"}= s.pass.expiry
+        - elsif s.pass.expired?
+          %td{:class => "expired"}= s.pass.expiry
+        - else
+          %td= s.pass.expiry
 %p
   %a{:href => "/"} New student
