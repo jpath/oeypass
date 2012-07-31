@@ -84,6 +84,18 @@ class Pass
       created_on + 2.weeks
     end
   end
+
+  def days_left
+    expiry - Date.today  
+  end
+
+  def expires_soon?
+    days_left < 7 && days_left > 0
+  end
+
+  def expired?
+    days_left <= 0
+  end
 end
 # CONFIGURATION
 enable :sessions
