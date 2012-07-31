@@ -181,6 +181,11 @@ get '/student/:id' do
   haml :student
 end
 
+get '/application.css' do
+  headers 'Content-Type' => 'text/css; charset=utf-8'
+  sass :style
+end
+
 # HELPERS
 helpers do
   def partial(page, options={})
